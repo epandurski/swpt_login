@@ -73,6 +73,12 @@ def test_set_language(client):
     assert get_cookie(r, "user_lang") == "en"
 
 
+def test_stylesheet(client):
+    r = client.get("/login/signup")
+    assert r.status_code == 200
+    assert "style-default.css" in r.get_data(as_text=True)
+
+
 def test_signup(mocker, client, db_session, acitivation_status_code):
     class ReservationMock:
         post = Mock(

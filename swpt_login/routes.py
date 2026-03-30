@@ -56,8 +56,19 @@ def set_frame_options_header(response):
 
 @login.app_context_processor
 @consent.app_context_processor
-def inject_get_locale():
-    return dict(get_locale=get_locale)
+def add_utility_functions():
+    cfg = current_app.config
+    return dict(
+        get_style_url=lambda: (
+            cfg['STYLE_URL']
+            or url_for(
+                '.static',
+                filename=f"style-{cfg['STYLE_NAME']}.css",
+                version=cfg['VERSION'],
+            )
+        ),
+        get_locale=get_locale,
+    )
 
 
 def create_altcha_challenge() -> str:

@@ -6,7 +6,7 @@
         <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
         <meta name="HandheldFriendly" content="True">
         <meta name="viewport" content="initial-scale=1.0">
-        <link rel="stylesheet" href="{{config['STYLE_URL'] or url_for('.static', filename='style.css', version=config.VERSION)}}">
+        <link rel="stylesheet" href="{{get_style_url()}}">
         <title>{% block title %}{{config['SITE_TITLE']}}{% endblock %}</title>
         {% if config.SHOW_ALTCHA_ON_LOGIN %}
           <script async defer src="{{url_for('.static', filename='altcha.min.js', version=config.VERSION)}}" type="module"></script>

@@ -125,7 +125,13 @@ SIGNED_UP_REDIRECT_URL=
 # ever been suspended.
 SUSPENDED_ACCOUNT_HELP_URL=https://example.com/help
 
-# Optional URL for a custom CSS style-sheet.
+# The name of the CSS style-sheet that will be used. Currently, the
+# available names are "default" and "alt1". The default style-sheet
+# name is "default".
+STYLE_NAME=default
+
+# Optional URL for a custom CSS style-sheet. If set, STYLE_NAME will
+# be ignored.
 STYLE_URL=
 
 # SMTP server connection parameters. You should set MAIL_SERVER to the

@@ -91,6 +91,7 @@ class Configuration(metaclass=MetaEnvReader):
     SITE_TITLE = "Login Test Site"
     LANGUAGES = "en"  # separated by a comma, for example "en,bg", the first is default
     ABOUT_URL = "https://swaptacular.github.io/overview"
+    STYLE_NAME = "default"
     STYLE_URL = ""
     SUSPENDED_ACCOUNT_HELP_URL = ""
     SIGNED_UP_REDIRECT_URL = ""  # It is highly recommended to set this!
@@ -115,7 +116,7 @@ class Configuration(metaclass=MetaEnvReader):
 
     # Other settings:
     #
-    VERSION = "1.0.6"
+    VERSION = "1.1.0"
     LOGIN_PATH = "/login"
     CONSENT_PATH = "/consent"
     SECRET_KEY = "dummy-secret"

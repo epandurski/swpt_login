@@ -45,7 +45,7 @@ class LoginRequest:
         """Too many login attempts."""
 
     def __init__(self, challenge_id):
-        self.challenge_id = quote_plus(challenge_id)
+        self.challenge_id = challenge_id
         self.timeout = float(current_app.config["HYDRA_REQUEST_TIMEOUT_SECONDS"])
         base_url = urljoin(
             current_app.config["HYDRA_ADMIN_URL"], "oauth2/auth/requests/"
@@ -72,7 +72,8 @@ class LoginRequest:
         """
 
         r = requests_session.get(
-            url=f"{self.fetch_url}?login_challenge={self.challenge_id}",
+            url=self.fetch_url,
+            params={"login_challenge": self.challenge_id},
             timeout=self.timeout,
         )
         r.raise_for_status()
@@ -91,7 +92,8 @@ class LoginRequest:
             return self.reject()
 
         r = requests_session.put(
-            url=f"{self.accept_url}?login_challenge={self.challenge_id}",
+            url=self.accept_url,
+            params={"login_challenge": self.challenge_id},
             timeout=self.timeout,
             json={
                 "subject": subject,
@@ -108,7 +110,8 @@ class LoginRequest:
         """Reject the request, return an URL to redirect to."""
 
         r = requests_session.put(
-            url=f"{self.reject_url}?login_challenge={self.challenge_id}",
+            url=self.reject_url,
+            params={"login_challenge": self.challenge_id},
             timeout=self.timeout,
             json={
                 "error": "too_many_logins",
@@ -123,7 +126,7 @@ class LoginRequest:
 
 class ConsentRequest:
     def __init__(self, challenge_id):
-        self.challenge_id = quote_plus(challenge_id)
+        self.challenge_id = challenge_id
         self.timeout = float(current_app.config["HYDRA_REQUEST_TIMEOUT_SECONDS"])
         base_url = urljoin(
             current_app.config["HYDRA_ADMIN_URL"], "oauth2/auth/requests/"
@@ -135,7 +138,8 @@ class ConsentRequest:
         """Return the consentRequest dict, or `None` if no consent is required."""
 
         r = requests_session.get(
-            url=f"{self.fetch_url}?consent_challenge={self.challenge_id}",
+            url=self.fetch_url,
+            params={"consent_challenge": self.challenge_id},
             timeout=self.timeout,
         )
         r.raise_for_status()
@@ -146,7 +150,8 @@ class ConsentRequest:
         """Approve the request, return an URL to redirect to."""
 
         r = requests_session.put(
-            url=f"{self.accept_url}?consent_challenge={self.challenge_id}",
+            url=self.accept_url,
+            params={"consent_challenge": self.challenge_id},
             timeout=self.timeout,
             json={
                 "grant_scope": grant_scope,

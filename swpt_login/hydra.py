@@ -78,9 +78,10 @@ class LoginRequest:
         )
         r.raise_for_status()
         fetched_data = r.json()
+        client_metadata = fetched_data["client"].get("metadata")
         return (
             fetched_data["subject"] if fetched_data["skip"] else None,
-            fetched_data["client"].get("metadata", {}).get("language"),
+            client_metadata.get("language") if client_metadata else None,
         )
 
     def accept(self, subject, remember=False, remember_for=1000000000):
